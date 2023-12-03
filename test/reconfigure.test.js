@@ -1,4 +1,4 @@
-import { describe, it, expect } from 'vitest'
+import { describe, it, expect } from 'vitest';
 
 /*
 Estamos en la fábrica de Santa Claus 🎅 creando regalos como si no hubiera un mañana.
@@ -12,74 +12,48 @@ Pero tiene limitaciones 🥲: al reemplazar el carácter se debe mantener el ord
 Necesitamos una función que nos diga si podemos reconfigurar una máquina para que de un regalo pueda pasar a fabricar otro según las reglas mencionadas. Lo mejor es que veamos un ejemplo:
 
 */
-const canReconfigure = (from, to) =>  {
-  if ( typeof from !== 'string' || typeof to !== 'string' ) throw new Error()
-  if ( from.length !== to.length ) return false
+const canReconfigure = (from, to) => {
+	if (typeof from !== 'string' || typeof to !== 'string') throw new Error();
+	if (from.length !== to.length) return false;
 
-  const characteresSeen = {}
-  for ( let character of to ) {
-    if ( character in characteresSeen) {
-      // characteres[character]++;
-      // console.log();
-      return false
-    } else {
-      characteresSeen[character] = true;
-    }
-  }
-  
-  const characteres = {}
-  for ( let i = 0 ; i < from.length ; i++) {
+	const charactersRepeated = {};
+	for (let character of to) {
+		if (character in charactersRepeated) {
+			return false;
+		} else {
+			charactersRepeated[character] = 1;
+		}
+	}
+};
 
-    let clave = from[i]
-    let valor = to[i]
+describe('ReconfigureMachine', () => {
+	it('it should be a function', () => {
+		expect(typeof canReconfigure).toBe('function');
+	});
 
-    if ( clave in characteres ) {
-      characteres[clave].push(valor)
+	it('it should be throw an error if parameters are not a string', () => {
+		expect(() => canReconfigure(2)).toThrow();
+		expect(() => canReconfigure(NaN)).toThrow();
+		// expect( () => canReconfigure()).toThrow()
+		expect(() => canReconfigure(undefined)).toThrow();
+		// expect( () => canReconfigure("2")).toThrow()
+		expect(() => canReconfigure('2', 2)).toThrow();
+		expect(() => canReconfigure(2, '2')).toThrow();
+	});
 
-    } 
-    
-    characteres[clave] = [valor]
-  }
+	it('it should be FALSE if parameters.lenght are not the same', () => {
+		expect(canReconfigure('AA', 'MID')).toBe(false);
+	});
 
+	it('it should be FALSE if the second parameter has repeating characters', () => {
+		expect(canReconfigure('CON', 'JUU')).toBe(false);
+	});
 
+	// it ('it should be TRUE if the second parameter has repeating characters and respect the order', () => {
+	//   expect(canReconfigure('MII', 'QII')).toBe(true)
+	// })
 
-  // const claves = Object.keys(characteres)
-
-  
-
-
-
-
-}
-
-describe ('ReconfigureMachine', () => {
-  it ('it should be a function', () => {
-    expect(typeof canReconfigure).toBe('function')
-  })
-
-  it ('it should be throw an error if parameters are not a string', () => {
-    expect( () => canReconfigure(2)).toThrow()
-    expect( () => canReconfigure(NaN)).toThrow()
-    // expect( () => canReconfigure()).toThrow()
-    expect( () => canReconfigure(undefined)).toThrow()
-    // expect( () => canReconfigure("2")).toThrow()
-    expect( () => canReconfigure("2", 2)).toThrow()
-    expect( () => canReconfigure(2, "2")).toThrow()
-  })
-
-  it ('it should be FALSE if parameters.lenght are not the same', () => {
-    expect( canReconfigure('AA', 'MID')).toBe(false)
-  })
-
-  it ('it should be FALSE if the second parameter has repeating characters', () => {
-    expect(canReconfigure('CON', 'JUU')).toBe(false)
-  })
-
-  it ('it should be TRUE if the second parameter has repeating characters and respect the order', () => {
-    expect(canReconfigure('MII', 'QII')).toBe(true)
-  })
-
-  // it ('it should be FALSE if the second parameter has repeating characters and does not respect the order', () => {
-  //   expect(canReconfigure('MII', 'QII')).toBe(false)
-  // })
-})
+	// it ('it should be FALSE if the second parameter has repeating characters and does not respect the order', () => {
+	//   expect(canReconfigure('MII', 'QII')).toBe(false)
+	// })
+});
