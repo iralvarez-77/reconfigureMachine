@@ -1,4 +1,5 @@
 import {describe, it, expect} from 'vitest'
+import { contarOvejas } from '../ovejas'
 
 /**
 Considera una lista/array de ovejas. Cada oveja tiene un nombre y un color. Haz una función que devuelva una lista con todas las ovejas que sean de color rojo y que además su nombre contenga tanto las letras n Y a, sin importar el orden, las mayúsculas o espacios.
@@ -14,20 +15,7 @@ Recuerda. Debe contener las dos letras 'a' y 'n' en el nombre. No cuentes ovejas
   }
  */
 
-export default function contarOvejas(ovejas) {
-
-  if ( !Array.isArray(ovejas) ) throw new Error()
-
-  const expReg = /(?=.*n)(?=.*a)/i
-
-  const ovejasFiltradas = ovejas.filter(({name, color}) => {
-    return color === "rojo" && expReg.test(name) 
-  })
-  
-  return ovejasFiltradas
-}
-
-describe('contarOveas', ( ) => {
+describe('contarOveas', () => {
 
   it('it should be a function', () => {
     expect( typeof contarOvejas).toBe('function')
