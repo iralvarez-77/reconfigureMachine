@@ -12,7 +12,7 @@ Necesitamos una función que nos diga si podemos reconfigurar una máquina para 
 
 */
 
-const canReconfigure = (from, to) => {
+export const canReconfigure = (from, to) => {
 	if (typeof from !== 'string' || typeof to !== 'string') throw new Error();
 	if (from.length !== to.length) return false;
 

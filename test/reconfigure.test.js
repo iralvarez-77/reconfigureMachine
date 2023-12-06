@@ -1,4 +1,5 @@
 import { describe, it, expect } from 'vitest';
+import { canReconfigure } from '../reconfigure'
 
 describe.skip('ReconfigureMachine', () => {
 	it('it should be a function', () => {
