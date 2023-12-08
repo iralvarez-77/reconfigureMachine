@@ -47,11 +47,24 @@ function distributeGifts(packOfGifts, reindeers) {
 
   if (!packOfGifts.every((gift) => typeof gift === 'string') || !reindeers.every((reindeer) => typeof reindeer === 'string')) throw new Error()
   
+  let counter = 0
+  for (let gift of  packOfGifts ) {
+    counter = counter + gift.length
+    console.log(gift);
+  }
+  console.log(counter);
+
+  let weight = 0 
+  for (let reindeer of reindeers) {
+    weight = weight + reindeer.length * 2
+  }
+  console.log("weight",weight);
 
 
-
-	return 0
+	return Math.floor(counter/weight)
 }
+
+
 
 describe('distributeGifts', () => {
 	it('it shoulb be a function', () => {
@@ -81,6 +94,6 @@ describe('distributeGifts', () => {
 	})
 
 	it(' it should return a number', () => {
-		expect(typeof distributeGifts(["fs", "gf"],["fr"])).toBe('number')
+		expect(typeof distributeGifts(["fs", "gfj"],["fr", "jhdfj", "jdh"])).toBe('number')
 	});
 });
