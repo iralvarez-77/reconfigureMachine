@@ -24,17 +24,17 @@ Los nombres de los regalos y los renos siempre serán mayores que 0.
 
 
 function distributeGifts(packOfGifts, reindeers) {
-  
-  const arrOfString = (packOfGifts) => {
-    for (let gift of packOfGifts) {
-      if (typeof gift !== 'string') {
-        return false
-      } 
-    }
+  // const arrOfString = (packOfGifts) => {
+  //   for (let gift of packOfGifts) {
+  //     if (typeof gift !== 'string') {
+  //       return false
+  //     } 
+  //   }
 
-    return true 
-  }
+  //   return true 
+  // }
 
+  // if ( !arrOfString(packOfGifts) || !arrOfString(reindeers) ) throw new Error()
 	const packOfGiftsArr = Array.isArray(packOfGifts);
 	const reindeersArr = Array.isArray(reindeers);
 
@@ -45,7 +45,10 @@ function distributeGifts(packOfGifts, reindeers) {
 		(reindeersArr && reindeers.length === 0)
 	) throw new Error();
 
-  if ( !arrOfString(packOfGifts) || !arrOfString(reindeers) ) throw new Error()
+  if (!packOfGifts.every((gift) => typeof gift === 'string') || !reindeers.every((reindeer) => typeof reindeer === 'string')) throw new Error()
+  
+
+
 
 	return 0
 }
@@ -72,6 +75,9 @@ describe('distributeGifts', () => {
 
 	it(' all array´s elements should be strings', () => {
 		expect(() => distributeGifts(['o',2, undefined], [2,NaN,'k'])).toThrow()
+		// expect(() => distributeGifts(["fs", "gf"],["fr"])).toThrow()
+		expect(() => distributeGifts(["fs", "gf"],[])).toThrow()
+		expect(() => distributeGifts(["fs", "gf"],[2,3])).toThrow()
 	})
 
 	it(' it should return a number', () => {

@@ -11,22 +11,23 @@
 //   return ovejasFiltradas
 // }
 
-const packOfGifts = ["book", "123", "ball"]
+// const packOfGifts = ["book", "123", "ball"]
 
-const ArrOfString = (packOfGifts) => {
+// const ArrOfString = (packOfGifts) => {
 
-  for (let gift of packOfGifts) {
-    if (typeof gift !== 'string') {
-      return false
+//   for (let gift of packOfGifts) {
+//     if (typeof gift !== 'string') {
+//       return false
 
-    } 
-  }
-  return true
-}
+//     } 
+//   }
+//   return true
+// }
 
-console.log("fn", ArrOfString(packOfGifts));
+// console.log("fn", ArrOfString(packOfGifts));
 
 
-// const prueba = []
+const prueba = [1,2]
 // console.log(Array.isArray(prueba));
-// console.log(prueba.length === 0);
+// console.log(prueba.length);
+console.log(!prueba);
