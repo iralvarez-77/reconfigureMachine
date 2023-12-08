@@ -28,7 +28,7 @@ describe.skip('contarOveas', () => {
     expect(() => contarOvejas(undefined)).toThrow()
   })
 
-  it('it should return an array ', () => {
+  it('it should return an array', () => {
     const result = contarOvejas([
       { name: 'Navidad', color: 'rojo' },
       { name: 'Ki Na Ma', color: 'rojo' }
