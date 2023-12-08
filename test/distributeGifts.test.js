@@ -75,6 +75,6 @@ describe('distributeGifts', () => {
 	})
 
 	it(' it should return a number', () => {
-		expect(typeof distributeGifts(["fs", "gf"],["fr" ])).toBe('number')
+		expect(typeof distributeGifts(["fs", "gf"],["fr"])).toBe('number')
 	});
 });
