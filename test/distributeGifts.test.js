@@ -1,5 +1,20 @@
 import { describe, it, expect } from 'vitest';
 /**
+ * // let counter = 0
+  // for (let gift of  packOfGifts ) {
+  //   counter = counter + gift.length
+  //   console.log(gift);
+  // }
+  // console.log(counter);
+
+  // let weight = 0 
+  // for (let reindeer of reindeers) {
+  //   weight = weight + reindeer.length * 2
+  // }
+  // console.log("weight",weight);
+
+
+  // return 0
 Tienes una caja de regalos de Navidad que Santa Claus quiere entregar a los niños. Cada regalo está representado por una cadena. Santa Claus tiene un trineo que puede llevar un peso limitado, y cada regalo dentro de la caja tiene un peso que es igual al número de letras en el nombre del regalo.
 
 Santa Claus también tiene una lista de renos que pueden ayudarlo a entregar los regalos. Cada reno tiene un límite de peso máximo que puede llevar. El límite de peso máximo de cada reno es igual a dos veces el número de letras en su nombre.
@@ -46,22 +61,22 @@ function distributeGifts(packOfGifts, reindeers) {
 	) throw new Error();
 
   if (!packOfGifts.every((gift) => typeof gift === 'string') || !reindeers.every((reindeer) => typeof reindeer === 'string')) throw new Error()
-  
-  let counter = 0
-  for (let gift of  packOfGifts ) {
-    counter = counter + gift.length
-    console.log(gift);
-  }
-  console.log(counter);
 
-  let weight = 0 
-  for (let reindeer of reindeers) {
-    weight = weight + reindeer.length * 2
-  }
-  console.log("weight",weight);
+  const weightPackOfGifts = packOfGifts.reduce((total, gift) => {
+    return total + gift.length
+  }, 0 )
+  console.log("gift",weightPackOfGifts);
+  const weightReindeers = reindeers.reduce(( total, reindeer) => {
+    return total + reindeer.length * 2
+  }, 0)
+  console.log("reindeer", weightReindeers);
+  console.log(weightPackOfGifts < weightReindeers);
 
-
-	return Math.floor(counter/weight)
+  const result = (weightPackOfGifts < weightReindeers)
+    ? Math.ceil( weightPackOfGifts / weightReindeers)
+    : Math.floor( weightPackOfGifts / weightReindeers)
+  console.log("result",result);
+  return result
 }
 
 
@@ -77,6 +92,7 @@ describe('distributeGifts', () => {
 		expect(() => distributeGifts(NaN)).toThrow();
 		expect(() => distributeGifts([], 'no array')).toThrow();
 		expect(() => distributeGifts([])).toThrow();
+		expect(() => distributeGifts()).toThrow();
 	});
 
 	it('it should  throw an error if one of two arrays is empty', () => {
@@ -94,6 +110,7 @@ describe('distributeGifts', () => {
 	})
 
 	it(' it should return a number', () => {
-		expect(typeof distributeGifts(["fs", "gfj"],["fr", "jhdfj", "jdh"])).toBe('number')
+		// expect(typeof distributeGifts(['a', 'b', 'c'], ['d', 'e'])).toBe('number')
+		expect(typeof distributeGifts(['videogames', 'console'], ['midu'])).toBe('number')
 	});
 });
