@@ -70,16 +70,12 @@ function distributeGifts(packOfGifts, reindeers) {
     return total + reindeer.length * 2
   }, 0)
   console.log("reindeer", weightReindeers);
-  console.log(weightPackOfGifts < weightReindeers);
+  console.log(weightPackOfGifts > weightReindeers);
 
-  const result = (weightPackOfGifts < weightReindeers)
-    ? Math.ceil( weightPackOfGifts / weightReindeers)
-    : Math.floor( weightPackOfGifts / weightReindeers)
-  console.log("result",result);
-  return result
+  if ( weightPackOfGifts > weightReindeers ) return 0
+
+  return Math.trunc( weightReindeers / weightPackOfGifts)
 }
-
-
 
 describe('distributeGifts', () => {
 	it('it shoulb be a function', () => {
@@ -110,7 +106,12 @@ describe('distributeGifts', () => {
 	})
 
 	it(' it should return a number', () => {
-		// expect(typeof distributeGifts(['a', 'b', 'c'], ['d', 'e'])).toBe('number')
-		expect(typeof distributeGifts(['videogames', 'console'], ['midu'])).toBe('number')
+		expect(typeof distributeGifts(['a', 'b', 'c'], ['d', 'e'])).toBe('number')
+		
+	});
+
+	it(' it should return 0 when the gifts greater than reeinder ', () => {
+		expect(distributeGifts(['videogames', 'console'], ['midu'])).toBe(0)
+    // expect(distributeGifts(['game', 'videoconsole', 'computer'], ['midudev', 'pheralb', 'codingwithdani', 'carlosble', 'blasco', 'facundocapua', 'madeval', 'memxd'])).toBe(5)
 	});
 });
