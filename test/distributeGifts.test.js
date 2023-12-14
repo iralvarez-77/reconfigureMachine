@@ -1,5 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import  { distributeGifts } from '../distributeGifts'
+
 describe('distributeGifts', () => {
 	it('it shoulb be a function', () => {
 		expect(typeof distributeGifts).toBe('function');
