@@ -49,8 +49,8 @@ describe ('fitsInOneBox', () => {
   it ('fitsInOneBox should be a funtion', ()=> {
     expect( typeof fitsInOneBox).toBe('function')
   }),
-  
-  it ('fitsInOneBox should be a funtion', ()=> {
+
+  it ('', ()=> {
     expect( typeof fitsInOneBox).toBe('function')
   })
 })
