@@ -47,8 +47,13 @@ function fitsInOneBox(boxes) {
   if ( !(boxes instanceof Array) ) throw new Error()
 
   for ( let box of boxes ) {
-    if ( typeof box !== 'object' ) throw new Error('it should be an objects´ array')
+    if ( typeof box !== 'object' || box instanceof Array ){
+      console.log('no es un array completo de objetos');
+      throw new Error('it should be an objects´ array')
+    }
   }
+  console.log('es un array completo de objetos');
+
 
   return false
 }
@@ -71,20 +76,12 @@ describe ('fitsInOneBox', () => {
 
   it ('fitsInOneBoxshould trhow an error when all items of array´s parameter are not objects', ()=> {
     expect(() => fitsInOneBox(['a', 'b'])).toThrow()
+    expect(() => fitsInOneBox(['a', []])).toThrow()
   })
 
-  it ('fitsInOneBoxshould trhow an erro', ()=> {
-    expect(() => fitsInOneBox([{}, 'b'])).toThrow()
-    expect(() => fitsInOneBox(['n', {}])).toThrow()
-    expect(() => fitsInOneBox([undefined, {}])).toThrow()
-    // expect(() => fitsInOneBox([{}, {}])).toThrow()
-
+  it ('fitsInOneBox should trhow an error if some of parameters are an array', ()=> {
+    expect(() => fitsInOneBox([{}, []])).toThrow()
   })
-
-  // it ('fitsInOneBox should trhow an error if parameter is empty', ()=> {
-  //   expect(() => fitsInOneBox()).toThrow()
-  //   expect(() => fitsInOneBox(undefined)).toThrow()
-  // })
 
   // it ('fitsInOneBox should trhow an error if parameter is a number', ()=> {
   //   expect(() => fitsInOneBox(2)).toThrow()
