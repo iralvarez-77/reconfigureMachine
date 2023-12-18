@@ -42,7 +42,11 @@ Las cajas no son siempre cuadradas, pueden ser rectangulares.
  */
 
 function fitsInOneBox(boxes) {
-  // return false
+  
+  console.log('boxes', boxes);
+  if ( !(boxes instanceof Array) ) throw new Error()
+
+  return false
 }
 
 describe ('fitsInOneBox', () => {
@@ -50,7 +54,31 @@ describe ('fitsInOneBox', () => {
     expect( typeof fitsInOneBox).toBe('function')
   }),
 
-  it ('', ()=> {
-    expect( typeof fitsInOneBox).toBe('function')
+  it ('fitsInOneBox should trhow an error if parameter is not an array', ()=> {
+    expect(() => fitsInOneBox('')).toThrow()
+    // expect(() => fitsInOneBox([
+    //   { l: 1, w: 1, h: 1 },
+    //   { l: 2, w: 2, h: 2 }
+    // ])).toThrow()
   })
+
+  it ('fitsInOneBox should return a boolean', ()=> {
+    expect( typeof fitsInOneBox([
+      { l: 1, w: 1, h: 1 },
+      { l: 2, w: 2, h: 2 }
+    ])).toBe('boolean')
+  })
+
+  // it ('fitsInOneBox should trhow an error if parameter is empty', ()=> {
+  //   expect(() => fitsInOneBox()).toThrow()
+  //   expect(() => fitsInOneBox(undefined)).toThrow()
+  // })
+
+  // it ('fitsInOneBox should trhow an error if parameter is a number', ()=> {
+  //   expect(() => fitsInOneBox(2)).toThrow()
+  // })
+
+  // it ('fitsInOneBox should trhow an error if parameter is NaN', ()=> {
+  //   expect(() => fitsInOneBox(NaN)).toThrow()
+  // })
 })
