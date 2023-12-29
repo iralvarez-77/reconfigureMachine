@@ -42,7 +42,7 @@ Las cajas no son siempre cuadradas, pueden ser rectangulares.
  */
 
 function fitsInOneBox(boxes) {
-	console.log('boxes', boxes);
+
 	if (!(boxes instanceof Array) || boxes.length === 0 || boxes.length === 1)
 		throw new Error();
 
@@ -53,12 +53,14 @@ function fitsInOneBox(boxes) {
 	}
 
 	const sortedBoxes = boxes.sort((boxA, boxB) => boxA.l - boxB.l);
-	const isTrue = sortedBoxes.every((box, idx, arr) => {
-		let boxB = arr[idx + 1];
-		if (box.l === box.w) return boxB ? box.l < boxB.l : true;
-	});
+  const isSquareBox = sortedBoxes.every((box, idx, arr) => {
+    if (box.l === box.w) {
+      let boxB = arr[idx + 1];
+      return boxB ? box.l < boxB.l && box.h < boxB.h : true;
+    }
+  } );
 
-	return isTrue;
+	return isSquareBox;
 }
 
 describe('fitsInOneBox', () => {
@@ -98,7 +100,8 @@ describe('fitsInOneBox', () => {
 	it('it should return true ', () => {
 		const result = fitsInOneBox([
 			{ l: 1, w: 1, h: 1 },
-      { l: 2, w: 2, h: 2 }
+      { l: 3, w: 3, h: 12 },
+      { l: 2, w: 2, h: 10 }
 		]);
 
 		expect(result).toBe(true);
