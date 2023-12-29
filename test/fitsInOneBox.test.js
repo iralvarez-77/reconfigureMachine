@@ -44,7 +44,11 @@ Las cajas no son siempre cuadradas, pueden ser rectangulares.
 function fitsInOneBox(boxes) {
   
   console.log('boxes', boxes);
-  if ( !(boxes instanceof Array) || boxes.length === 0 ) throw new Error()
+  if ( 
+    !(boxes instanceof Array) 
+    || boxes.length === 0
+    || boxes.length === 1
+    ) throw new Error()
 
   for ( let box of boxes ) {
     if ( typeof box !== 'object' || box instanceof Array ){
@@ -53,8 +57,6 @@ function fitsInOneBox(boxes) {
     }
   }
   console.log('es un array completo de objetos');
-
-
   return false
 }
 
@@ -85,6 +87,10 @@ describe ('fitsInOneBox', () => {
 
   it ('fitsInOneBox should throw an error when array parameter is empty', ()=> {
     expect(() => fitsInOneBox([])).toThrow()
+  })
+
+  it ('fitsInOneBox should throw an error when array parameter has only one element.', ()=> {
+    expect(() => fitsInOneBox([{}])).toThrow()
   })
 
   // it ('fitsInOneBox should trhow an error if parameter is a number', ()=> {
