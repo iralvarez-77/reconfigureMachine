@@ -44,7 +44,7 @@ Las cajas no son siempre cuadradas, pueden ser rectangulares.
 function fitsInOneBox(boxes) {
   
   console.log('boxes', boxes);
-  if ( !(boxes instanceof Array) ) throw new Error()
+  if ( !(boxes instanceof Array) || boxes.length === 0 ) throw new Error()
 
   for ( let box of boxes ) {
     if ( typeof box !== 'object' || box instanceof Array ){
@@ -60,7 +60,7 @@ function fitsInOneBox(boxes) {
 
 describe ('fitsInOneBox', () => {
   it ('fitsInOneBox should be a funtion', ()=> {
-    expect( typeof fitsInOneBox).toBe('function')
+    expect(typeof fitsInOneBox).toBe('function')
   }),
 
   it ('fitsInOneBox should trhow an error if parameter is not an array', ()=> {
@@ -68,19 +68,23 @@ describe ('fitsInOneBox', () => {
   })
 
   it ('fitsInOneBox should return a boolean', ()=> {
-    expect( typeof fitsInOneBox([
+    expect(typeof fitsInOneBox([
       { l: 1, w: 1, h: 1 },
       { l: 2, w: 2, h: 2 }
     ])).toBe('boolean')
   })
 
-  it ('fitsInOneBoxshould trhow an error when all items of array´s parameter are not objects', ()=> {
+  it ('fitsInOneBox should trhow an error when all items of array´s parameter are not objects', ()=> {
     expect(() => fitsInOneBox(['a', 'b'])).toThrow()
     expect(() => fitsInOneBox(['a', []])).toThrow()
   })
 
   it ('fitsInOneBox should trhow an error if some of parameters are an array', ()=> {
     expect(() => fitsInOneBox([{}, []])).toThrow()
+  })
+
+  it ('fitsInOneBox should throw an error when array parameter is empty', ()=> {
+    expect(() => fitsInOneBox([])).toThrow()
   })
 
   // it ('fitsInOneBox should trhow an error if parameter is a number', ()=> {
