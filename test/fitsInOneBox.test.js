@@ -1,4 +1,4 @@
-import { describe, it, expect}from 'vitest'
+import { describe, it, expect } from 'vitest';
 /**
   Santa Claus necesita hacer una revisión de sus cajas de regalos para asegurarse de que puede empaquetarlas todas en su trineo. Cuenta con una serie de cajas de diferentes tamaños, que se caracterizan por su longitud, anchura y altura.
 
@@ -42,62 +42,82 @@ Las cajas no son siempre cuadradas, pueden ser rectangulares.
  */
 
 function fitsInOneBox(boxes) {
-  
-  console.log('boxes', boxes);
-  if ( 
-    !(boxes instanceof Array) 
-    || boxes.length === 0
-    || boxes.length === 1
-    ) throw new Error()
+	console.log('boxes', boxes);
+	if (!(boxes instanceof Array) || boxes.length === 0 || boxes.length === 1)
+		throw new Error();
 
-  for ( let box of boxes ) {
-    if ( typeof box !== 'object' || box instanceof Array ){
-      console.log('no es un array completo de objetos');
-      throw new Error('it should be an objects´ array')
-    }
-  }
-  console.log('es un array completo de objetos');
-  return false
+	for (let box of boxes) {
+		if (typeof box !== 'object' || box instanceof Array) {
+			throw new Error('it should be an objects´ array');
+		}
+	}
+
+	const sortedBoxes = boxes.sort((boxA, boxB) => boxA.l - boxB.l);
+	const isTrue = sortedBoxes.every((box, idx, arr) => {
+		let boxB = arr[idx + 1];
+		if (box.l === box.w) return boxB ? box.l < boxB.l : true;
+	});
+
+	return isTrue;
 }
 
-describe ('fitsInOneBox', () => {
-  it ('fitsInOneBox should be a funtion', ()=> {
-    expect(typeof fitsInOneBox).toBe('function')
-  }),
+describe('fitsInOneBox', () => {
+	it('fitsInOneBox should be a funtion', () => {
+		expect(typeof fitsInOneBox).toBe('function');
+	}),
+		it('fitsInOneBox should trhow an error if parameter is not an array', () => {
+			expect(() => fitsInOneBox('')).toThrow();
+		});
 
-  it ('fitsInOneBox should trhow an error if parameter is not an array', ()=> {
-    expect(() => fitsInOneBox('')).toThrow()
-  })
+	it('fitsInOneBox should return a boolean', () => {
+		expect(
+			typeof fitsInOneBox([
+				{ l: 1, w: 1, h: 1 },
+				{ l: 2, w: 2, h: 2 },
+			])
+		).toBe('boolean');
+	});
 
-  it ('fitsInOneBox should return a boolean', ()=> {
-    expect(typeof fitsInOneBox([
-      { l: 1, w: 1, h: 1 },
+	it('fitsInOneBox should trhow an error when all items of array´s parameter are not objects', () => {
+		expect(() => fitsInOneBox(['a', 'b'])).toThrow();
+		expect(() => fitsInOneBox(['a', []])).toThrow();
+	});
+
+	it('fitsInOneBox should trhow an error if some of parameters are an array', () => {
+		expect(() => fitsInOneBox([{}, []])).toThrow();
+	});
+
+	it('fitsInOneBox should throw an error when array parameter is empty', () => {
+		expect(() => fitsInOneBox([])).toThrow();
+	});
+
+	it('fitsInOneBox should throw an error when array parameter has only one element.', () => {
+		expect(() => fitsInOneBox([{}])).toThrow();
+	});
+
+	it('it should return true ', () => {
+		const result = fitsInOneBox([
+			{ l: 1, w: 1, h: 1 },
       { l: 2, w: 2, h: 2 }
-    ])).toBe('boolean')
-  })
+		]);
 
-  it ('fitsInOneBox should trhow an error when all items of array´s parameter are not objects', ()=> {
-    expect(() => fitsInOneBox(['a', 'b'])).toThrow()
-    expect(() => fitsInOneBox(['a', []])).toThrow()
-  })
+		expect(result).toBe(true);
+	});
 
-  it ('fitsInOneBox should trhow an error if some of parameters are an array', ()=> {
-    expect(() => fitsInOneBox([{}, []])).toThrow()
-  })
+	// it('prueba false', () => {
+	//   const result = fitsInOneBox([
+	//     { l: 1, w: 1, h: 1 },
+	//     { l: 2, w: 3, h: 2 }
+	//   ]);
 
-  it ('fitsInOneBox should throw an error when array parameter is empty', ()=> {
-    expect(() => fitsInOneBox([])).toThrow()
-  })
+	// expect(result).toBe(false);
+	// });
 
-  it ('fitsInOneBox should throw an error when array parameter has only one element.', ()=> {
-    expect(() => fitsInOneBox([{}])).toThrow()
-  })
+	// it ('fitsInOneBox should trhow an error if parameter is a number', ()=> {
+	//   expect(() => fitsInOneBox(2)).toThrow()
+	// })
 
-  // it ('fitsInOneBox should trhow an error if parameter is a number', ()=> {
-  //   expect(() => fitsInOneBox(2)).toThrow()
-  // })
-
-  // it ('fitsInOneBox should trhow an error if parameter is NaN', ()=> {
-  //   expect(() => fitsInOneBox(NaN)).toThrow()
-  // })
-})
+	// it ('fitsInOneBox should trhow an error if parameter is NaN', ()=> {
+	//   expect(() => fitsInOneBox(NaN)).toThrow()
+	// })
+});
