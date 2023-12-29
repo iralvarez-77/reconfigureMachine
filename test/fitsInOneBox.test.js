@@ -97,14 +97,14 @@ describe('fitsInOneBox', () => {
 		expect(() => fitsInOneBox([{}])).toThrow();
 	});
 
-	it('it should return true ', () => {
+	it('it should return false , cuando la altura de la caja menor sea > a la altura de la caja mayor', () => {
 		const result = fitsInOneBox([
-			{ l: 1, w: 1, h: 1 },
+			{ l: 1, w: 1, h: 10 },
       { l: 3, w: 3, h: 12 },
-      { l: 2, w: 2, h: 10 }
+      { l: 2, w: 2, h: 1 }
 		]);
 
-		expect(result).toBe(true);
+		expect(result).toBe(false);
 	});
 
 	// it('prueba false', () => {
