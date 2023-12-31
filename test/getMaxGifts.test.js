@@ -1,3 +1,5 @@
+import { describe, it, expect } from "vitest"
+
 /**
   Para no cansar a los renos, Papá Noel quiere dejar el máximo número de regalos haciendo el menor número posible de viajes.
 
@@ -38,6 +40,15 @@ El número de maxCities puede ser mayor a giftsCities.length
 
  */
 
+import { describe } from "node:test"
+import { expect } from "vitest"
+
 function getMaxGifts(giftsCities, maxGifts, maxCities) {
   return 0
 }
+
+describe('getMaxGifts', () => {
+  it('it should be a function', () => {
+    expect(typeof getMaxGifts).toBe('function')
+  })
+})
